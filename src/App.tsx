@@ -14,6 +14,7 @@ export interface Product {
   subcategory: string;
   price: number;
   originalPrice: number;
+  priceOnRequest?: boolean;
   rating: number;
   reviews: number;
   size?: string;

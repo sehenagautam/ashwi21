@@ -7,6 +7,7 @@ import EffortlessCheckout from '../components/EffortlessCheckout';
 import PromoBanner from '../components/PromoBanner';
 import DesignInspiration from '../components/DesignInspiration';
 import { Product } from '../App';
+import useSeo from '../hooks/useSeo';
 
 interface HomePageProps {
   products: Product[];
@@ -14,6 +15,15 @@ interface HomePageProps {
 }
 
 function HomePage({ products, phone }: HomePageProps) {
+  useSeo({
+    title: 'Ashwi Furniture Factory Nepal | Buy Beds, Sofas, Wardrobes in Kathmandu',
+    description:
+      'Ashwi Furniture Factory in Kathmandu, Nepal. Explore beds, sofas, wardrobes, mandir units and storage furniture with high-quality finishing and factory-direct support.',
+    canonical: 'https://ashwifurniture.com/',
+    keywords:
+      'furniture factory nepal, buy furniture kathmandu, bed price nepal, wardrobe price nepal, sofa set nepal, ashwi furniture'
+  });
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedSubcategory, setSelectedSubcategory] = useState('all');
@@ -148,6 +158,24 @@ function HomePage({ products, phone }: HomePageProps) {
 
       <PromoBanner />
       <DesignInspiration />
+
+      <section className="bg-bg pb-16">
+        <div className="w-[min(1240px,calc(100%-2rem))] mx-auto bg-surface border border-line rounded-xl p-6 md:p-8">
+          <h2 className="m-0 mb-3 text-brand-deep font-serif text-[1.7rem]">Furniture Factory in Kathmandu, Nepal</h2>
+          <p className="m-0 text-muted leading-[1.75] text-[0.95rem]">
+            Ashwi Furniture is a Nepal-based furniture factory serving high-intent buyers looking for
+            beds, sofas, wardrobes, mandir units, and storage furniture in Kathmandu and beyond. Our
+            collections are built with quality finishing, practical design, and factory-direct support.
+          </p>
+          <h3 className="mt-6 mb-2 text-ink font-serif text-[1.2rem]">Popular High-Intent Furniture Searches</h3>
+          <ul className="m-0 pl-5 text-[0.93rem] leading-[1.75] text-ink">
+            <li>Buy beds in Kathmandu: king beds, queen beds, and modern low beds</li>
+            <li>Wardrobe price in Nepal: spacious multi-section wardrobe designs</li>
+            <li>Sofa set in Nepal: modern and designer living room furniture options</li>
+            <li>Mandir furniture in Nepal with integrated storage and lighting</li>
+          </ul>
+        </div>
+      </section>
     </main>
   );
 }

@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { Product } from '../App';
+import useSeo from '../hooks/useSeo';
 
 interface ProductDetailsPageProps {
   products: Product[];
@@ -20,16 +21,59 @@ function ProductDetailsPage({ products, phone }: ProductDetailsPageProps) {
   }
 
   const hasDiscount = Number(product.originalPrice) > Number(product.price);
+  const isPriceOnRequest = Boolean(product.priceOnRequest);
   const discountPercent = hasDiscount
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
 
   const message = encodeURIComponent(
-    `Hi Ashwi Furniture, I want to order ${product.name} priced at रु ${product.price.toLocaleString('en-IN')}.`
+    isPriceOnRequest
+      ? `Hi Ashwi Furniture, I want details for ${product.name}.`
+      : `Hi Ashwi Furniture, I want to order ${product.name} priced at रु ${product.price.toLocaleString('en-IN')}.`
   );
+
+  const productUrl = `https://ashwifurniture.com/product/${product.id}`;
+  const productDescription = `${product.description} Category: ${product.category} > ${product.subcategory}.`;
+
+  useSeo({
+    title: `${product.name} | Ashwi Furniture Factory Nepal`,
+    description: productDescription,
+    canonical: productUrl,
+    keywords: `${product.name}, ${product.category} nepal, ${product.subcategory} kathmandu, ashwi furniture`,
+    ogImage: `https://ashwifurniture.com${product.image}`
+  });
+
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    image: [`https://ashwifurniture.com${product.image}`],
+    description: productDescription,
+    brand: {
+      '@type': 'Brand',
+      name: 'Ashwi Furniture'
+    },
+    category: `${product.category} > ${product.subcategory}`,
+    url: productUrl,
+    offers: isPriceOnRequest
+      ? {
+          '@type': 'Offer',
+          priceCurrency: 'NPR',
+          availability: 'https://schema.org/InStock',
+          url: productUrl
+        }
+      : {
+          '@type': 'Offer',
+          priceCurrency: 'NPR',
+          price: product.price,
+          availability: 'https://schema.org/InStock',
+          url: productUrl
+        }
+  };
 
   return (
     <main className="w-[min(1240px,calc(100%-2rem))] mx-auto py-10">
+      <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
       <Link className="inline-flex items-center text-brand font-semibold mb-6 hover:text-brand-dark transition-colors" to="/">
         <span className="mr-2" aria-hidden="true">&larr;</span> Back to Catalog
       </Link>
@@ -49,11 +93,17 @@ function ProductDetailsPage({ products, phone }: ProductDetailsPageProps) {
           <p className="text-muted text-[1.05rem] leading-[1.65] font-sans mb-5">{product.description}</p>
 
           <div className="flex items-center gap-3 mb-6 p-4 bg-bg rounded-lg border border-line">
-            {hasDiscount && (
-              <span className="line-through text-[#B0A49A] text-[1.1rem]">रु {product.originalPrice.toLocaleString('en-IN')}</span>
+            {isPriceOnRequest ? (
+              <span className="text-brand-deep text-[1.4rem] font-bold">Price on request</span>
+            ) : (
+              <>
+                {hasDiscount && (
+                  <span className="line-through text-[#B0A49A] text-[1.1rem]">रु {product.originalPrice.toLocaleString('en-IN')}</span>
+                )}
+                <span className="text-brand-deep text-[1.8rem] font-bold">रु {product.price.toLocaleString('en-IN')}</span>
+                {hasDiscount && <span className="ml-auto bg-[#E5F5EC] text-success rounded px-3 py-1 font-bold text-[0.9rem]">Save {discountPercent}%</span>}
+              </>
             )}
-            <span className="text-brand-deep text-[1.8rem] font-bold">रु {product.price.toLocaleString('en-IN')}</span>
-            {hasDiscount && <span className="ml-auto bg-[#E5F5EC] text-success rounded px-3 py-1 font-bold text-[0.9rem]">Save {discountPercent}%</span>}
           </div>
 
           <dl className="grid grid-cols-[120px_1fr] md:grid-cols-[150px_1fr] gap-y-3 mb-6 p-4 bg-bg rounded-lg border border-line">

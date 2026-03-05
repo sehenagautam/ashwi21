@@ -8,7 +8,7 @@ function Header() {
           <img className="w-[50px] h-[50px] rounded-md object-cover border border-line" src="/images/dressing-hollywood.webp" alt="Ashwi Furniture Logo" />
           <div>
             <h1 className="m-0 text-[1.35rem] leading-[1.15] text-brand-deep tracking-[0.01em] font-serif font-normal">Ashwi Furniture</h1>
-            <p className="m-0 text-[0.82rem] text-muted font-sans font-medium tracking-[0.03em] uppercase">Factory Direct Furniture Store</p>
+            <p className="m-0 text-[0.82rem] text-muted font-sans font-medium tracking-[0.03em] uppercase">Factory Direct Furniture</p>
           </div>
         </div>
         <nav className="flex flex-wrap items-center justify-between md:justify-end gap-3 md:gap-6 font-semibold text-[0.92rem] text-ink tracking-[0.02em]" aria-label="Primary">
