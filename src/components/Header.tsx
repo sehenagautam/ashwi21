@@ -12,10 +12,11 @@ function Header() {
           </div>
         </div>
         <nav className="flex flex-wrap items-center justify-between md:justify-end gap-3 md:gap-6 font-semibold text-[0.92rem] text-ink tracking-[0.02em]" aria-label="Primary">
-          <NavLink to="/" className={({ isActive }) => (isActive ? 'text-brand' : 'hover:text-brand')}>Home</NavLink>
-          <NavLink to="/" className="hover:text-brand">Collections</NavLink>
-          <NavLink to="/about" className={({ isActive }) => (isActive ? 'text-brand' : 'hover:text-brand')}>About</NavLink>
-          <NavLink to="/about" className="hover:text-brand">Contact</NavLink>
+          <a href="/#home" className="hover:text-brand">Home</a>
+          <a href="/#products" className="hover:text-brand">Products</a>
+          <a href="/#categories" className="hover:text-brand">Categories</a>
+          <a href="/#search" className="hover:text-brand">Search</a>
+          <NavLink to="/contact" className={({ isActive }) => (isActive ? 'text-brand' : 'hover:text-brand')}>Contact</NavLink>
         </nav>
       </div>
     </header>

@@ -1,4 +1,5 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import FilterSidebar from '../components/FilterSidebar';
 import CategoryNav from '../components/CategoryNav';
@@ -24,7 +25,8 @@ function HomePage({ products, phone }: HomePageProps) {
       'furniture factory nepal, buy furniture kathmandu, bed price nepal, wardrobe price nepal, sofa set nepal, ashwi furniture'
   });
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('q') || '');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedSubcategory, setSelectedSubcategory] = useState('all');
   const [sortBy, setSortBy] = useState('nameAsc');
@@ -48,6 +50,14 @@ function HomePage({ products, phone }: HomePageProps) {
 
   const [minPrice, setMinPrice] = useState(priceBounds.min);
   const [maxPrice, setMaxPrice] = useState(priceBounds.max);
+
+  useEffect(() => {
+    const q = searchParams.get('q') || '';
+    if (q !== searchTerm) {
+      setSearchTerm(q);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const filteredProducts = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase();
@@ -87,27 +97,39 @@ function HomePage({ products, phone }: HomePageProps) {
     setMinPrice(priceBounds.min);
     setMaxPrice(priceBounds.max);
     setSortBy('nameAsc');
+    setSearchParams({});
   };
 
   return (
-    <main className="w-full">
-      <CategoryNav />
+    <main className="w-full" id="home">
+      <section id="categories">
+        <CategoryNav />
+      </section>
       <HeroBanner />
       <EffortlessCheckout />
 
       {/* Catalog Section */}
-      <section className="bg-bg py-16" id="catalog">
+      <section className="bg-bg py-16" id="products">
         <div className="w-[min(1240px,calc(100%-2rem))] mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center bg-surface p-5 rounded-xl border border-line mb-8 gap-4">
             <h2 className="m-0 text-[1.4rem] font-serif font-black text-brand-deep shrink-0">Our Catalog</h2>
             <div className="flex-1 max-w-[500px] w-full relative">
               <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true">🔍</span>
               <input
+                id="search"
                 className="w-full pl-10 pr-4 py-3 rounded-lg border border-line bg-bg focus:outline focus:outline-2 focus:outline-brand focus:-outline-offset-1 focus:border-brand font-inherit text-[0.95rem] tracking-[0.01em]"
                 type="search"
                 placeholder="Search sofas, mandirs, tags..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSearchTerm(value);
+                  if (value.trim()) {
+                    setSearchParams({ q: value });
+                  } else {
+                    setSearchParams({});
+                  }
+                }}
               />
             </div>
           </div>
@@ -174,6 +196,11 @@ function HomePage({ products, phone }: HomePageProps) {
             <li>Sofa set in Nepal: modern and designer living room furniture options</li>
             <li>Mandir furniture in Nepal with integrated storage and lighting</li>
           </ul>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link to="/categories/sofas" className="inline-flex px-4 py-2 rounded-lg bg-tag-bg text-brand-deep border border-line font-semibold text-[0.9rem]">Browse Sofas</Link>
+            <Link to="/categories/beds" className="inline-flex px-4 py-2 rounded-lg bg-tag-bg text-brand-deep border border-line font-semibold text-[0.9rem]">Browse Beds</Link>
+            <Link to="/categories/dining" className="inline-flex px-4 py-2 rounded-lg bg-tag-bg text-brand-deep border border-line font-semibold text-[0.9rem]">Browse Dining</Link>
+          </div>
         </div>
       </section>
     </main>

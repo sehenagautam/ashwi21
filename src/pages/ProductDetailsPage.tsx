@@ -71,9 +71,35 @@ function ProductDetailsPage({ products, phone }: ProductDetailsPageProps) {
         }
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://ashwifurniture.com/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: product.category,
+        item: 'https://ashwifurniture.com/#products'
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: product.name,
+        item: productUrl
+      }
+    ]
+  };
+
   return (
     <main className="w-[min(1240px,calc(100%-2rem))] mx-auto py-10">
       <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       <Link className="inline-flex items-center text-brand font-semibold mb-6 hover:text-brand-dark transition-colors" to="/">
         <span className="mr-2" aria-hidden="true">&larr;</span> Back to Catalog
       </Link>

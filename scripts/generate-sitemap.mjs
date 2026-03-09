@@ -7,7 +7,16 @@ const dataPath = path.join(root, 'src', 'data', 'furniture.json');
 const outPath = path.join(root, 'public', 'sitemap.xml');
 
 const json = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-const staticUrls = ['/', '/about'];
+const staticUrls = [
+  '/',
+  '/about',
+  '/contact',
+  '/shipping-returns',
+  '/privacy',
+  '/categories/sofas',
+  '/categories/beds',
+  '/categories/dining'
+];
 const productUrls = (json.products || []).map((p) => `/product/${p.id}`);
 const allUrls = [...staticUrls, ...productUrls];
 const now = new Date().toISOString().split('T')[0];

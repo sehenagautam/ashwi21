@@ -9,16 +9,18 @@ function Footer() {
           <p className="text-[0.9rem] leading-[1.6] text-[#D4C8BC]">Quality furniture directly from factory to your home.</p>
         </div>
         <div>
-          <h4 className="mt-0 text-[#FAF6F1] font-serif text-lg mb-2">Quick Links</h4>
-          <Link to="/" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">Collections</Link>
-          <Link to="/about" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">About Us</Link>
-          <Link to="/about" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">Contact</Link>
+          <h4 className="mt-0 text-[#FAF6F1] font-serif text-lg mb-2">STORE</h4>
+          <a href="/#home" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">Home</a>
+          <a href="/#products" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">Products</a>
+          <a href="/#categories" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">Categories</a>
+          <a href="/#search" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">Search</a>
+          <Link to="/contact" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">Contact</Link>
         </div>
         <div>
-          <h4 className="mt-0 text-[#FAF6F1] font-serif text-lg mb-2">WhatsApp</h4>
-          <a href="https://wa.me/9779860479751" target="_blank" rel="noopener noreferrer" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">
-            Chat on +977 98604 79751
-          </a>
+          <h4 className="mt-0 text-[#FAF6F1] font-serif text-lg mb-2">Policy</h4>
+          <Link to="/shipping-returns" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">Shipping & Returns</Link>
+          <Link to="/privacy" className="block mt-2 text-[#D4C8BC] text-[0.9rem] hover:text-brand transition-colors">Privacy Policy</Link>
+          <p className="text-[0.9rem] text-[#D4C8BC] mt-3">Powered by Sajedar</p>
         </div>
       </div>
       <p className="text-center mt-6 pt-4 border-t border-[rgba(232,223,212,0.2)] text-[#9A8B7E] text-[0.85rem]">© {new Date().getFullYear()} Ashwi Furniture. All rights reserved.</p>

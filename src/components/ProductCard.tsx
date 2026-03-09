@@ -7,13 +7,16 @@ interface ProductCardProps {
 }
 
 function ProductCard({ product, phone }: ProductCardProps) {
+  const isPriceOnRequest = Boolean(product.priceOnRequest);
   const hasDiscount = Number(product.originalPrice) > Number(product.price);
   const discountPercent = hasDiscount
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
 
   const message = encodeURIComponent(
-    `Hi Ashwi Furniture, I am interested in ${product.name} (${product.category} > ${product.subcategory}) priced at रु ${product.price.toLocaleString('en-IN')}.`
+    isPriceOnRequest
+      ? `Hi Ashwi Furniture, I am interested in ${product.name} (${product.category} > ${product.subcategory}). Please share details.`
+      : `Hi Ashwi Furniture, I am interested in ${product.name} (${product.category} > ${product.subcategory}) priced at रु ${product.price.toLocaleString('en-IN')}.`
   );
 
   return (
@@ -34,11 +37,17 @@ function ProductCard({ product, phone }: ProductCardProps) {
         <p className="m-0 text-muted text-[0.88rem] leading-[1.55] min-h-[44px]">{product.description}</p>
 
         <div className="flex items-center gap-1.5 mt-3">
-          {hasDiscount && (
-            <span className="line-through text-[#B0A49A] text-[0.88rem]">रु {product.originalPrice.toLocaleString('en-IN')}</span>
+          {isPriceOnRequest ? (
+            <span className="text-brand-deep font-bold text-[1.1rem] font-sans">Price on request</span>
+          ) : (
+            <>
+              {hasDiscount && (
+                <span className="line-through text-[#B0A49A] text-[0.88rem]">रु {product.originalPrice.toLocaleString('en-IN')}</span>
+              )}
+              <span className="text-brand-deep font-bold text-[1.3rem] font-sans">रु {product.price.toLocaleString('en-IN')}</span>
+              {hasDiscount && <span className="ml-auto bg-[#E5F5EC] text-success rounded px-2 py-0.5 font-bold text-[0.78rem]">-{discountPercent}% OFF</span>}
+            </>
           )}
-          <span className="text-brand-deep font-bold text-[1.3rem] font-sans">रु {product.price.toLocaleString('en-IN')}</span>
-          {hasDiscount && <span className="ml-auto bg-[#E5F5EC] text-success rounded px-2 py-0.5 font-bold text-[0.78rem]">-{discountPercent}% OFF</span>}
         </div>
 
         <p className="my-2.5 font-semibold text-muted text-[0.88rem]">★ {product.rating} ({product.reviews} reviews)</p>

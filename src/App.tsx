@@ -4,6 +4,10 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
+import CategoryPage from './pages/CategoryPage';
+import ContactPage from './pages/ContactPage';
+import ShippingReturnsPage from './pages/ShippingReturnsPage';
+import PrivacyPage from './pages/PrivacyPage';
 import furnitureData from './data/furniture.json';
 
 // Define the shape of our product data
@@ -35,6 +39,10 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage products={products} phone={phone} />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/shipping-returns" element={<ShippingReturnsPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/categories/:slug" element={<CategoryPage products={products} phone={phone} />} />
           <Route path="/product/:productId" element={<ProductDetailsPage products={products} phone={phone} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
