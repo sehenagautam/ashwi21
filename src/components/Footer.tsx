@@ -26,8 +26,6 @@ function Footer() {
         <p className="m-0 text-[#9A8B7E] text-[0.85rem]">© {new Date().getFullYear()} Ashwi Furniture. All rights reserved.</p>
         <a
           href="https://sajedar.com"
-          target="_blank"
-          rel="nofollow noopener noreferrer"
           className="text-[#D4C8BC] text-[0.85rem] hover:text-brand transition-colors"
         >
           Powered by sajedar.com
